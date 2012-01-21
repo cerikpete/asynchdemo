@@ -12,6 +12,14 @@ namespace MessageProcessor
         {
             Console.WriteLine("Entering the processor");
 
+            DemoTaskWhereTheOuputIsUsed();
+
+            Console.WriteLine("Completed all of the tasks");
+            Console.ReadKey();
+        }
+
+        private static void SpinUpDemoTasks()
+        {
             var task1 = Task.Factory.StartNew(() =>
             {
                 var writer = new MessageWriter();
@@ -25,9 +33,17 @@ namespace MessageProcessor
             });
 
             Task.WaitAll(task1, task2);
+        }
 
-            Console.WriteLine("Completed all of the tasks");
-            Console.ReadKey();
+        private static void DemoTaskWhereTheOuputIsUsed()
+        {
+            var task = Task<string>.Factory.StartNew(() =>
+            {
+                var messageGenerator = new MessageGenerator();
+                return messageGenerator.GenerateMessage("Erik", 5);
+            });
+            var result = task.Result;
+            Console.WriteLine(result);
         }
     }
 }
