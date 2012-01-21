@@ -42,7 +42,7 @@ namespace MessageProcessor
                 var messageGenerator = new MessageGenerator();
                 return messageGenerator.GenerateMessage("Erik", 5);
             });
-            var result = task.Result;
+            var result = task.Result; // This will block on its own, no need to call Wait
             Console.WriteLine(result);
         }
     }
