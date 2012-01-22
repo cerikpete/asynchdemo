@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MessageProcessor.Messages;
-using MessageProcessor.Queuing;
+using Queuing;
 using System.Messaging;
 
 namespace MessageProcessor
@@ -15,7 +15,7 @@ namespace MessageProcessor
         {
             Console.WriteLine("Entering the processor");
 
-            DemoQueue();
+            DemoQueueWithProcessor();
 
             Console.WriteLine("Completed all of the tasks");
             Console.ReadKey();
@@ -57,6 +57,12 @@ namespace MessageProcessor
             Console.WriteLine("Getting message from the queue");
             var message = GetMessageFromQueue();
             Console.WriteLine(message.Body.ToString());
+        }
+
+        private static void DemoQueueWithProcessor()
+        {
+            Console.WriteLine("Writing message to the queue");
+            WriteMessageToQueue("This is another queue message");
         }
 
         private static void WriteMessageToQueue(string message)

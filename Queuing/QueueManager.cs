@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Messaging;
 
-namespace MessageProcessor.Queuing
+namespace Queuing
 {
-    class QueueManager
+    public class QueueManager
     {
         private const string QueuePath = @".\Private$\DemoQueue";
         private MessageQueue messageQueue;
 
         public QueueManager()
         {
-            InitializeQueue();
+            messageQueue = QueueInitializer.InitializeQueue();
         }
 
         public void Send(string messageBody)
@@ -26,15 +26,6 @@ namespace MessageProcessor.Queuing
         public Message Receive()
         {
             return messageQueue.Receive();
-        }
-
-        private void InitializeQueue()
-        {
-            if (!MessageQueue.Exists(QueuePath))
-                messageQueue = MessageQueue.Create(QueuePath);
-            else
-                messageQueue = new MessageQueue(QueuePath);
-            messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
         }
     }
 }
