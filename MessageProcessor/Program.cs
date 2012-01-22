@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MessageProcessor.Messages;
+using MessageProcessor.Queuing;
+using System.Messaging;
 
 namespace MessageProcessor
 {
@@ -12,7 +15,7 @@ namespace MessageProcessor
         {
             Console.WriteLine("Entering the processor");
 
-            DemoTaskWhereTheOuputIsUsed();
+            DemoQueue();
 
             Console.WriteLine("Completed all of the tasks");
             Console.ReadKey();
@@ -44,6 +47,28 @@ namespace MessageProcessor
             });
             var result = task.Result; // This will block on its own, no need to call Wait
             Console.WriteLine(result);
+        }
+
+        private static void DemoQueue()
+        {
+            Console.WriteLine("Writing message to the queue");
+            WriteMessageToQueue("This is a queue message");
+
+            Console.WriteLine("Getting message from the queue");
+            var message = GetMessageFromQueue();
+            Console.WriteLine(message.Body.ToString());
+        }
+
+        private static void WriteMessageToQueue(string message)
+        {
+            var queueManager = new QueueManager();
+            queueManager.Send(message);
+        }
+
+        private static Message GetMessageFromQueue()
+        {
+            var queueManager = new QueueManager();
+            return queueManager.Receive();
         }
     }
 }
