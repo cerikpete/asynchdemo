@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Queuing;
 using System.Messaging;
 
@@ -21,11 +18,11 @@ namespace QueueListener
 
         private static void StartListening()
         {
-            messageQueue.ReceiveCompleted += new System.Messaging.ReceiveCompletedEventHandler(ReceiveCompleted);
+            messageQueue.ReceiveCompleted += ReceiveCompleted;
             messageQueue.BeginReceive();
         }
 
-        static void ReceiveCompleted(object sender, System.Messaging.ReceiveCompletedEventArgs e)
+        static void ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {
             Console.WriteLine("Receiving message...");
             var message = messageQueue.EndReceive(e.AsyncResult);

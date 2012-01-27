@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Messaging;
 
 namespace Queuing
@@ -17,7 +14,7 @@ namespace Queuing
                 messageQueue = MessageQueue.Create(QueuePath);
             else
                 messageQueue = new MessageQueue(QueuePath);
-            messageQueue.Formatter = new XmlMessageFormatter(new Type[] { typeof(string) });
+            messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(string) });
             return messageQueue;
         }
     }
