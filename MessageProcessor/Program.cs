@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Core;
 using MessageProcessor.Messages;
 using Queuing;
 using System.Messaging;
+using log4net;
 
 namespace MessageProcessor
 {
@@ -11,11 +13,13 @@ namespace MessageProcessor
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Entering the processor");
+            LogManager.GetLogger(typeof (Program));
+
+            Log<Program>.Debug("Entering the processor");
 
             SimpleDemoOfTasks();
 
-            Console.WriteLine("End of Main method");
+            Log<Program>.Debug("End of Main method");
             Console.ReadKey();
         }
 
@@ -52,22 +56,22 @@ namespace MessageProcessor
                 return messageGenerator.GenerateMessage("Erik", 5);
             });
             var result = task.Result; // This will block on its own, no need to call Wait
-            Console.WriteLine(result);
+            Log<Program>.Info(result);
         }
 
         private static void DemoQueue()
         {
-            Console.WriteLine("Writing message to the queue");
+            Log<Program>.Debug("Writing message to the queue");
             WriteMessageToQueue("This is a queue message");
 
-            Console.WriteLine("Getting message from the queue");
+            Log<Program>.Debug("Getting message from the queue");
             var message = GetMessageFromQueue();
-            Console.WriteLine(message.Body.ToString());
+            Log<Program>.Info(message.Body.ToString());
         }
 
         private static void DemoQueueWithProcessor()
         {
-            Console.WriteLine("Writing message to the queue");
+            Log<Program>.Info("Writing message to the queue");
             WriteMessageToQueue("This is another queue message");
         }
 

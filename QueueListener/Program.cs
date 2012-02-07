@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Queuing;
 using System.Messaging;
 
@@ -10,7 +11,7 @@ namespace QueueListener
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Begining listening to queue...");
+            Log<Program>.Debug("Begining listening to queue...");
             messageQueue = QueueInitializer.InitializeQueue();
             StartListening();
             Console.ReadKey();
@@ -24,9 +25,9 @@ namespace QueueListener
 
         static void ReceiveCompleted(object sender, ReceiveCompletedEventArgs e)
         {
-            Console.WriteLine("Receiving message...");
+            Log<Program>.Debug("Receiving message...");
             var message = messageQueue.EndReceive(e.AsyncResult);
-            Console.WriteLine(message.Body.ToString());
+            Log<Program>.Info(message.Body.ToString());
             messageQueue.BeginReceive();
         }
     }

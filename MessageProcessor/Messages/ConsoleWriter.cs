@@ -1,5 +1,5 @@
-using System;
 using System.Threading;
+using Core;
 
 namespace MessageProcessor.Messages
 {
@@ -8,7 +8,7 @@ namespace MessageProcessor.Messages
         public void WriteToConsole()
         {
             Thread.Sleep(5000);
-            Console.WriteLine("I'm writing to the console after a 5 second delay");
+            Log<ConsoleWriter>.Info("I'm writing to the console after a 5 second delay");
         }
     }
 }

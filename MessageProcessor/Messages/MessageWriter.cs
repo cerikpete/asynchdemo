@@ -1,5 +1,5 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
+using Core;
 
 namespace MessageProcessor.Messages
 {
@@ -10,7 +10,7 @@ namespace MessageProcessor.Messages
             if (sleepSeconds > 0)
                 Thread.Sleep(sleepSeconds * 1000);
 
-            Console.WriteLine(message);
+            Log<MessageWriter>.Info(message);
         }
     }
 }
