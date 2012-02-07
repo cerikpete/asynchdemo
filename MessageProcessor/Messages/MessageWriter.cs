@@ -12,5 +12,5 @@ namespace MessageProcessor.Messages
 
             Console.WriteLine(message);
         }
-    }    
+    }
 }

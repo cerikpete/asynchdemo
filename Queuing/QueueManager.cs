@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Messaging;
+﻿using System.Messaging;
 
 namespace Queuing
 {
     public class QueueManager
     {
-        private const string QueuePath = @".\Private$\DemoQueue";
-        private MessageQueue messageQueue;
+        private readonly MessageQueue messageQueue;
 
         public QueueManager()
         {

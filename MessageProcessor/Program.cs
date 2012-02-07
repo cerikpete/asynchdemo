@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MessageProcessor.Messages;
 using Queuing;
@@ -12,18 +13,26 @@ namespace MessageProcessor
         {
             Console.WriteLine("Entering the processor");
 
-            DemoQueueWithProcessor();
+            SimpleDemoOfTasks();
 
-            Console.WriteLine("Completed all of the tasks");
+            Console.WriteLine("End of Main method");
             Console.ReadKey();
         }
 
-        private static void SpinUpDemoTasks()
+        private static void ThreadsTheOldSchoolWay()
+        {
+            var writer = new ConsoleWriter();
+            Thread thread = new Thread(writer.WriteToConsole);
+            thread.Start();
+            thread.Join();
+        }
+
+        private static void SimpleDemoOfTasks()
         {
             var task1 = Task.Factory.StartNew(() =>
             {
                 var writer = new MessageWriter();
-                writer.WriteMessage("This is the first message", 5);
+                writer.WriteMessage("This is the first message with a 5 second delay", 5);
             });
 
             var task2 = Task.Factory.StartNew(() =>
@@ -32,7 +41,7 @@ namespace MessageProcessor
                 writer.WriteMessage("This is the second message");
             });
 
-            Task.WaitAll(task1, task2);
+            //Task.WaitAll(task1, task2);
         }
 
         private static void DemoTaskWhereTheOuputIsUsed()
