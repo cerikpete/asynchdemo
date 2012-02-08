@@ -2,6 +2,7 @@
 using Core;
 using Queuing;
 using System.Messaging;
+using log4net;
 
 namespace QueueListener
 {
@@ -11,6 +12,8 @@ namespace QueueListener
 
         static void Main(string[] args)
         {
+            LogManager.GetLogger(typeof(Program));
+
             Log<Program>.Debug("Begining listening to queue...");
             messageQueue = QueueInitializer.InitializeQueue();
             StartListening();

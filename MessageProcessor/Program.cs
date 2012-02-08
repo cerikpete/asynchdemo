@@ -17,7 +17,7 @@ namespace MessageProcessor
 
             Log<Program>.Debug("Entering the processor");
 
-            SimpleDemoOfTasks();
+            DemoQueueWithProcessor();
 
             Log<Program>.Debug("End of Main method");
             Console.ReadKey();
