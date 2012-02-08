@@ -33,5 +33,14 @@ namespace QueueListener
             Log<Program>.Info(message.Body.ToString());
             messageQueue.BeginReceive();
         }
+
+        static void ReceiveQueueMessage(object sender, ReceiveCompletedEventArgs e)
+        {
+            Log<Program>.Debug("Receiving queue message...");
+            var message = messageQueue.EndReceive(e.AsyncResult);
+            var queueMessage = message.Body as QueueMessage;
+            queueMessage.DoSomeWork();
+            messageQueue.BeginReceive();
+        }
     }
 }

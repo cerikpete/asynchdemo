@@ -13,7 +13,7 @@ namespace Queuing
                 messageQueue = MessageQueue.Create(QueuePath);
             else
                 messageQueue = new MessageQueue(QueuePath);
-            messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(string) });
+            messageQueue.Formatter = new XmlMessageFormatter(new[] { typeof(string), typeof(QueueMessage) });
             return messageQueue;
         }
     }

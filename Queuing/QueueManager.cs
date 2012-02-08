@@ -18,6 +18,11 @@ namespace Queuing
             messageQueue.Send(message);
         }
 
+        public void Send(QueueMessage queueMessage)
+        {
+            messageQueue.Send(queueMessage);
+        }
+
         public Message Receive()
         {
             return messageQueue.Receive();

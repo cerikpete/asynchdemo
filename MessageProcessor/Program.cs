@@ -17,7 +17,7 @@ namespace MessageProcessor
 
             Log<Program>.Debug("Entering the processor");
 
-            DemoQueueWithProcessor();
+            DemoQueueWithQueueMessage();
 
             Log<Program>.Debug("End of Main method");
             Console.ReadKey();
@@ -75,10 +75,27 @@ namespace MessageProcessor
             WriteMessageToQueue("This is another queue message");
         }
 
+        private static void DemoQueueWithQueueMessage()
+        {
+            Log<Program>.Debug("Writing message to the queue");
+            WriteMessageToQueue(new QueueMessage());
+            Log<Program>.Debug("Getting coffee");
+            Thread.Sleep(2500);
+            Log<Program>.Debug("Reading a book");
+            Thread.Sleep(3000);
+            Log<Program>.Debug("That's it for this thread");
+        }
+
         private static void WriteMessageToQueue(string message)
         {
             var queueManager = new QueueManager();
             queueManager.Send(message);
+        }
+
+        private static void WriteMessageToQueue(QueueMessage queueMessage)
+        {
+            var queueManager = new QueueManager();
+            queueManager.Send(queueMessage);
         }
 
         private static Message GetMessageFromQueue()
