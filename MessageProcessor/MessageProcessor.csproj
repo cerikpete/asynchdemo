@@ -51,6 +51,7 @@
     <Compile Include="Messages\ConsoleWriter.cs" />
     <Compile Include="Messages\MessageGenerator.cs" />
     <Compile Include="Messages\MessageWriter.cs" />
+    <Compile Include="Messages\ParallelMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

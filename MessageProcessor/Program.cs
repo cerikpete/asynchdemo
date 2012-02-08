@@ -5,7 +5,9 @@ using Core;
 using MessageProcessor.Messages;
 using Queuing;
 using System.Messaging;
+using System.Linq;
 using log4net;
+using System.Collections.Generic;
 
 namespace MessageProcessor
 {
@@ -102,6 +104,15 @@ namespace MessageProcessor
         {
             var queueManager = new QueueManager();
             return queueManager.Receive();
+        }
+
+        private static void ParallelDemo()
+        {
+            var parallelMessage1 = new ParallelMessage("Message 1", 5);
+            var parallelMessage2 = new ParallelMessage("Message 2", 1);
+            var parallelMessage3 = new ParallelMessage("Message 3", 8);
+            var messages = new List<ParallelMessage> { parallelMessage1, parallelMessage2, parallelMessage3 };
+            messages.AsParallel().ForEach(m => m.ProcessMessage);
         }
     }
 }
