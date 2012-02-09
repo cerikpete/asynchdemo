@@ -19,7 +19,7 @@ namespace MessageProcessor
 
             Log<Program>.Debug("Entering the processor");
 
-            ParallelDemo();
+            ContinueWithDemo();
 
             Log<Program>.Debug("End of Main method");
             Console.ReadKey();
@@ -113,6 +113,28 @@ namespace MessageProcessor
             var parallelMessage3 = new ParallelMessage("Message 3", 8);
             var messages = new List<ParallelMessage> { parallelMessage1, parallelMessage2, parallelMessage3 };
             messages.AsParallel().ForAll(m => m.ProcessMessage());
+        }
+
+        private static void PassingInExternalData()
+        {
+            var myText = "Some text";
+            Task.Factory.StartNew((text) => new MessageWriter().WriteMessage(text.ToString(), 2), myText);
+        }
+
+        private static void ContinueWithDemo()
+        {
+            Task.Factory.StartNew(() =>
+                {
+                    var messageGenerator = new MessageGenerator();
+                    string theMessage = messageGenerator.GenerateMessage("my original message (after sleeping 5 seconds)", 5);
+                    new MessageWriter().WriteMessage(theMessage);
+                    return theMessage;
+                })
+            .ContinueWith((s) =>
+                {
+                    var messageWriter = new MessageWriter();
+                    messageWriter.WriteMessage(s.Result + " now appended with another message");
+                });
         }
     }
 }
