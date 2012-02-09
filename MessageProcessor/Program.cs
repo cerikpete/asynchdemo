@@ -125,6 +125,7 @@ namespace MessageProcessor
         {
             Task.Factory.StartNew(() =>
                 {
+                    Log<Program>.Debug("Entering first task");
                     var messageGenerator = new MessageGenerator();
                     string theMessage = messageGenerator.GenerateMessage("my original message (after sleeping 5 seconds)", 5);
                     new MessageWriter().WriteMessage(theMessage);
@@ -132,6 +133,7 @@ namespace MessageProcessor
                 })
             .ContinueWith((s) =>
                 {
+                    Log<Program>.Debug("Entering second task");
                     var messageWriter = new MessageWriter();
                     messageWriter.WriteMessage(s.Result + " now appended with another message");
                 });
