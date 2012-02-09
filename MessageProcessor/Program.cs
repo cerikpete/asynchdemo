@@ -19,7 +19,7 @@ namespace MessageProcessor
 
             Log<Program>.Debug("Entering the processor");
 
-            DemoQueueWithQueueMessage();
+            ParallelDemo();
 
             Log<Program>.Debug("End of Main method");
             Console.ReadKey();
@@ -112,7 +112,7 @@ namespace MessageProcessor
             var parallelMessage2 = new ParallelMessage("Message 2", 1);
             var parallelMessage3 = new ParallelMessage("Message 3", 8);
             var messages = new List<ParallelMessage> { parallelMessage1, parallelMessage2, parallelMessage3 };
-            messages.AsParallel().ForEach(m => m.ProcessMessage);
+            messages.AsParallel().ForAll(m => m.ProcessMessage());
         }
     }
 }
